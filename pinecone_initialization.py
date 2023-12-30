@@ -1,15 +1,31 @@
+import os
 import pandas as pd
 from tqdm import tqdm
 from uuid import uuid4
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
+from  dotenv import load_dotenv
+import pinecone
+
+load_dotenv()
+os.environ.get("OPENAI_API_KEY") # outputs test
+
+PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
+YOUR_ENV = 'gcp-starter'
+INDEX_NAME = 'temp'
+# Initialize Pinecone client
+pinecone.init(
+    api_key=PINECONE_API_KEY,
+    environment=YOUR_ENV
+)
+demo_index = pinecone.Index('temp')
 
 BATCH_SIZE = 4
 MODEL_NAME = 'text-embedding-ada-002'
 EMBED = OpenAIEmbeddings(
     model=MODEL_NAME,
 )
-def chunk_by_size(text: str, size: int = 250):
+def chunk_by_size(text: str, size: int = 1500):
     """
     Chunk up text recursively.
 
@@ -24,7 +40,7 @@ def chunk_by_size(text: str, size: int = 250):
     return text_splitter.create_documents([text])
 
 def pad_text(text):
-    padded_text = text.ljust(250, 'X')
+    padded_text = text.ljust(1500, 'X')
     return padded_text
 
 def csv_to_list(file_path):
@@ -32,7 +48,7 @@ def csv_to_list(file_path):
   data_list = []
   for i in range(len(df_path)):
     data = f"History: \n {df_path['History'][i]}\n Primary_Daignose: \n  {df_path['Body_Vitals'][i]}\n Description \n {df_path['Description'][i]}"
-    if len(data)<250:
+    if len(data)<1500:
         data = pad_text(data)
     data_list.append(data)
   return data_list
@@ -67,6 +83,8 @@ def create_chunks_metadata_embeddings(dataset) -> list[dict]:
              "id": str(uuid4()),
             "values": EMBED.embed_documents([text])[0] # --> list of len 248, each item of those 248 has a len of 1536
             }
+            
+
             data_objs.append(payload)
 
     # Return list of dictionaries, each containing our metadata, ID, and embedding, per chunk.
@@ -102,13 +120,9 @@ def main(file_path : list[str], name_space : list[str]):
     for i,file in enumerate(file_path):
         chunks = csv_to_list(file)
         data = create_chunks_metadata_embeddings(chunks)
-        batch_upsert(data, index='temp', namespace= name_space[i])
+        batch_upsert(data, index= demo_index, namespace= name_space[i])
 
 if __name__ == "__main__":
-    file_names = ['ent.csv', 'dengue_df.csv']
-    name_spaces = ['ent', 'dengue']
+    file_names = [ 'dengue_df.csv']
+    name_spaces = ['dengue']
     main(file_names, name_spaces)
-
-
-
-

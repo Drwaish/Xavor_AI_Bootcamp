@@ -1,17 +1,19 @@
 ''' Driver file to run the code'''
 import os
-from openai import OpenAI
+from langchain.llms import OpenAI
 
+from dotenv import load_dotenv
 import pandas as pd
 import pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
-
+load_dotenv()
+os.environ.get("OPENAI_API_KEY") # outputs test
+PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
 
 # os.environ['OPENAI_API_KEY'] =  os.getenv('OPENAI_API_KEY')
 client = OpenAI()
 # PINECONE_API_KEY = os.getenv("PINECONE_API") #read pinecone api
 # Find ENV (cloud region) next to API key in console
-PINECONE_API_KEY = 'af7941a7-ad5a-479f-9357-e05ca471ff5d'
 YOUR_ENV = 'gcp-starter'
 INDEX_NAME = 'temp'
 # Initialize Pinecone client

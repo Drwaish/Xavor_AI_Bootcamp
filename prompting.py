@@ -18,7 +18,7 @@ Body Vitals:
  Doctors are keeping a close eye on the patient's blood platelet count to catch any issues early. \
  The patient is getting enough fluids and rest to help them get better.
 """
-def prompt_maker(query = real_query):
+def prompt_maker(query = real_query, name_space = 'dengue'):
     """
     Build prompt to create first report for doctor.
 
@@ -27,7 +27,7 @@ def prompt_maker(query = real_query):
     Query
         Patient describe what he/ she feels
     """
-    descript1, descript2, descript3 = get_context(query, name_space='dengue')
+    descript1, descript2, descript3 = get_context(query, name_space= name_space)
     previous_patient = f'<<CONTEXT>> \n {descript1} \n {descript2} \n {descript3} \n <<QUERY>> \n \n {query}'
     return previous_patient
 if __name__ =="__main__":

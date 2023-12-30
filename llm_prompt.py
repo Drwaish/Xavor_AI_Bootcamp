@@ -1,4 +1,5 @@
 ''' LLM prmpting for effecient working '''
+import os
 from langchain.chains.router import MultiPromptChain
 from langchain.chains.router.llm_router import LLMRouterChain,RouterOutputParser
 from langchain.memory import ConversationBufferWindowMemory
@@ -6,6 +7,11 @@ from langchain.prompts import PromptTemplate
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
+
+
+load_dotenv()
+os.environ.get("OPENAI_API_KEY") # outputs test
 
 LLM = ChatOpenAI(
       model="gpt-4",

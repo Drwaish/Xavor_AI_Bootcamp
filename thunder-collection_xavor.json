@@ -1,0 +1,43 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "xavor",
+    "dateExported": "2023-12-30T18:07:45.320Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "06e3e96a-dc28-4c9a-b9c0-6efc07b47cd0",
+            "colId": "9eed2497-7801-43e7-b11c-787a35a4964f",
+            "containerId": "",
+            "name": "prescription",
+            "url": "127.0.0.1:5000/query",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-30T17:01:31.571Z",
+            "modified": "2023-12-30T17:08:54.555Z",
+            "headers": [
+                {
+                    "name": "api_key",
+                    "value": "zain"
+                },
+                {
+                    "name": "Accept",
+                    "value": "*/*",
+                    "isDisabled": true
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name_space\": \"dengue\",\n  \"history\": \"The patient has a history of recent travel to a tropical or subtropical region where dengue fever is endemic. They may have been exposed to the dengue virus through mosquito bites during their travel. Dengue fever is a viral infection transmitted by the Aedes mosquito.\",\n  \"description\": \"The patient is presenting symptoms of dengue fever, such as high fever, severe headache, and body pain. They may have a rash on their body and complain of pain behind the eyes. The patient's blood platelet count is being monitored regularly to assess their condition and ensure early detection of any complications. Adequate hydration and rest are being provided to support the patient's recovery.\",\n  \"body_vitals\": {\n    \"Weight\": 69,\n    \"Body_temperature\": 39.7,\n    \"Blood_pressure_diastolic\": 78,\n    \"Blood_pressure_systolic\": 126,\n    \"Heart_rate\": \"95 bpm\",\n    \"Respiratory_rate\": 19,\n    \"Blood_sugar_level\": 115\n  }\n}\n",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
